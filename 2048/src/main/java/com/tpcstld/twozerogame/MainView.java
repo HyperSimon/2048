@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @SuppressWarnings("deprecation")
@@ -24,8 +25,8 @@ public class MainView extends View {
     private static final float MERGING_ACCELERATION = (float) -0.5;
     private static final float INITIAL_VELOCITY = (1 - MERGING_ACCELERATION) / 4;
     public final int numCellTypes = 21;
-    private final BitmapDrawable[] bitmapCell = new BitmapDrawable[numCellTypes];
     public final MainGame game;
+    private final BitmapDrawable[] bitmapCell = new BitmapDrawable[numCellTypes];
     //Internal variables
     private final Paint paint = new Paint();
     public boolean hasSaveState = false;
@@ -72,6 +73,24 @@ public class MainView extends View {
     private int titleWidthHighScore;
     private int titleWidthScore;
 
+    private Bitmap Pic1 = null;
+    private Bitmap Pic2 = null;
+    private Bitmap Pic3 = null;
+    private Bitmap Pic4 = null;
+    private Bitmap Pic5 = null;
+    private Bitmap Pic6 = null;
+    private Bitmap Pic7 = null;
+    private Bitmap Pic8 = null;
+    private Bitmap Pic9 = null;
+    private Bitmap Pic10 = null;
+    private Bitmap Pic11 = null;
+    private Bitmap Pic12 = null;
+    private Bitmap Pic13 = null;
+    private Bitmap Pic14 = null;
+    private Bitmap Pic15 = null;
+    private Bitmap Pic16 = null;
+
+
     public MainView(Context context) {
         super(context);
 
@@ -92,6 +111,18 @@ public class MainView extends View {
         }
         setOnTouchListener(new InputListener(this));
         game.newGame();
+
+
+        try {
+            NetKit.getImage("https://raw.githubusercontent.com/HyperSimon/2048/master/2048/src/main/res/mipmap-xhdpi/chengcheng.png", new BitMapCallBack() {
+                @Override
+                public void getBitMap(Bitmap b, IOException e) {
+                    Pic1 = b;
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static int log2(int n) {
@@ -154,89 +185,100 @@ public class MainView extends View {
 //            paint.setColor(getResources().getColor(R.color.text_black));
 //        }
 
-        int id;
-        int index =(int) (Math.log(value) /  Math.log(2));
-        switch (index){
+        int index = (int) (Math.log(value) / Math.log(2));
+
+        Bitmap bitmap; // BitmapFactory.decodeResource(getResources(), id);
+
+        switch (index) {
             case 1:
-                id = R.mipmap.jimei;
+                if (Pic1 != null) bitmap = Pic1;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.jimei);
                 break;
 
             case 2:
-                id = R.mipmap.nike;
+                if (Pic2 != null) bitmap = Pic2;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.nike);
                 break;
 
             case 3:
-                id = R.mipmap.jiyou;
+                if (Pic3 != null) bitmap = Pic3;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.jiyou);
                 break;
 
             case 4:
-                id = R.mipmap.jili;
+                if (Pic4 != null)bitmap = Pic4 ;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.jili);
                 break;
 
             case 5:
-                id = R.mipmap.yingying;
+                if (Pic5 != null) bitmap = Pic5;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.yingying);
                 break;
 
             case 6:
-                id = R.mipmap.nini;
+                if (Pic6 != null) bitmap = Pic6;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.nini);
                 break;
 
             case 7:
-                id = R.mipmap.chengda;
+                if (Pic7 != null) bitmap = Pic7;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengda);
                 break;
 
             case 8:
-                id = R.mipmap.chengxiao;
+                if (Pic8 != null) bitmap = Pic8;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengxiao);
                 break;
 
             case 9:
-                id = R.mipmap.chengshuang;
+                if (Pic9 != null) bitmap = Pic9;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengshuang);
                 break;
 
             case 10:
-                id = R.mipmap.chengdui;
+                if (Pic10 != null) bitmap = Pic10;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengdui);
                 break;
 
             case 11:
-                id = R.mipmap.chengjiu;
+                if (Pic11 != null) bitmap = Pic11;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengjiu);
                 break;
 
             case 12:
-                id = R.mipmap.chengshi;
+                if (Pic12 != null) bitmap = Pic12;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengshi);
                 break;
 
             case 13:
-                id = R.mipmap.chengji;
+                if (Pic13 != null) bitmap = Pic13;
+
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengji);
                 break;
 
             case 14:
-                id = R.mipmap.chengcheng;
+                if (Pic14 != null) bitmap = Pic14;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengcheng);
                 break;
 
             case 15:
-                id = R.mipmap.chengji;
+                if (Pic15 != null) bitmap = Pic15;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengji);
                 break;
 
             case 16: // 最多只有16种可能
-                id = R.mipmap.chengji;
+                if (Pic16 != null) bitmap = Pic16;
+                else bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengji);
                 break;
 
             default:
-                    id = R.mipmap.chengshi;
-                    break;
-        }
-
-        Bitmap bitmap; // BitmapFactory.decodeResource(getResources(), id);
-        try {
-            bitmap = NetKit.getImage("http://cdn.duitang.com/uploads/item/201508/30/20150830105732_nZCLV.jpeg");
-        } catch (Exception e) {
-            bitmap = BitmapFactory.decodeResource(getResources(), id);
-            e.printStackTrace();
+                bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.chengshi);
+                break;
         }
 
         int pictureHeight = bitmap.getHeight();
         int cellHeight = this.cellSize;
-        float scaleCoefficient = cellHeight / (float)pictureHeight;
+        float scaleCoefficient = cellHeight / (float) pictureHeight;
 
         Matrix location = new Matrix();
         location.setScale(scaleCoefficient, scaleCoefficient);
@@ -613,15 +655,15 @@ public class MainView extends View {
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(1000);
         instructionsTextSize = Math.min(
-            1000f * (widthWithPadding / (paint.measureText(getResources().getString(R.string.instructions)))),
-            textSize / 1.5f
+                1000f * (widthWithPadding / (paint.measureText(getResources().getString(R.string.instructions)))),
+                textSize / 1.5f
         );
         gameOverTextSize = Math.min(
-            Math.min(
-                1000f * ((widthWithPadding - gridWidth * 2) / (paint.measureText(getResources().getString(R.string.game_over)))),
-                textSize * 2
-            ),
-            1000f * ((widthWithPadding - gridWidth * 2) / (paint.measureText(getResources().getString(R.string.you_win))))
+                Math.min(
+                        1000f * ((widthWithPadding - gridWidth * 2) / (paint.measureText(getResources().getString(R.string.game_over)))),
+                        textSize * 2
+                ),
+                1000f * ((widthWithPadding - gridWidth * 2) / (paint.measureText(getResources().getString(R.string.you_win))))
         );
 
         paint.setTextSize(cellSize);
