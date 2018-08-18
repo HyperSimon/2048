@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="high_score">历史最高分</string>
+    <string name="score">分数</string>
+    <string name="instructions">两两相加得卡绩妈.</string>
+    <string name="you_win">你成功的召唤了绩妈!</string>
+    <string name="game_over">游戏结束!</string>
+    <string name="go_on">点击继续</string>
+    <string name="for_now">For now…</string>
+    <string name="endless">无尽模式</string>
+
+    <!-- Confirmation dialog-->
+    <string name="reset">重置</string>
+    <string name="continue_game">取消</string>
+    <string name="reset_dialog_title">重新开始?</string>
+    <string name="reset_dialog_message">你确定要重新开始游戏?</string>
+</resources>
