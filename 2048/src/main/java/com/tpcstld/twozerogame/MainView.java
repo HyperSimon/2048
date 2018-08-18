@@ -214,11 +214,11 @@ public class MainView extends View {
                 break;
 
             case 15:
-                id = R.mipmap.chengji;
+                id = R.mipmap.kebi;
                 break;
 
             case 16: // 最多只有16种可能
-                id = R.mipmap.chengji;
+                id = R.mipmap.susu;
                 break;
 
             default:
