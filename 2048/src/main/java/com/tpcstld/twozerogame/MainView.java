@@ -227,12 +227,7 @@ public class MainView extends View {
         }
 
         Bitmap bitmap; // BitmapFactory.decodeResource(getResources(), id);
-        try {
-            bitmap = NetKit.getImage("http://cdn.duitang.com/uploads/item/201508/30/20150830105732_nZCLV.jpeg");
-        } catch (Exception e) {
-            bitmap = BitmapFactory.decodeResource(getResources(), id);
-            e.printStackTrace();
-        }
+        bitmap = BitmapFactory.decodeResource(getResources(), id);
 
         int pictureHeight = bitmap.getHeight();
         int cellHeight = this.cellSize;
