@@ -1,4 +1,4 @@
-package com.tpcstld.twozerogame;
+package com.roselism.chengsdojo;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -7,6 +7,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -155,8 +159,8 @@ public class MainView extends View {
 //        }
 
         int id;
-        int index =(int) (Math.log(value) /  Math.log(2));
-        switch (index){
+        int index = (int) (Math.log(value) / Math.log(2));
+        switch (index) {
             case 1:
                 id = R.mipmap.jimei;
                 break;
@@ -222,8 +226,8 @@ public class MainView extends View {
                 break;
 
             default:
-                    id = R.mipmap.chengshi;
-                    break;
+                id = R.mipmap.chengshi;
+                break;
         }
 
         Bitmap bitmap; // BitmapFactory.decodeResource(getResources(), id);
@@ -231,14 +235,21 @@ public class MainView extends View {
 
         int pictureHeight = bitmap.getHeight();
         int cellHeight = this.cellSize;
-        float scaleCoefficient = cellHeight / (float)pictureHeight;
+        float scaleCoefficient = cellHeight / (float) pictureHeight;
 
-        Matrix location = new Matrix();
-        location.setScale(scaleCoefficient, scaleCoefficient);
+        // 设置图片缩放
+        Matrix matrix = new Matrix();
+        matrix.setScale(scaleCoefficient, scaleCoefficient);
+        canvas.concat(matrix);
 
-        canvas.drawBitmap(bitmap, location, paint);
+        final float roundRadio = 40;
+        Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        RectF rectf = new RectF(rect);
+        canvas.drawRoundRect(rectf, roundRadio, roundRadio, paint);
 
-        // canvas.drawText("" + value , cellSize / 2, cellSize / 2 - textShiftY, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        paint.setXfermode(null);
     }
 
     private void drawScoreText(Canvas canvas) {
@@ -492,8 +503,9 @@ public class MainView extends View {
             int textBottom = middleY - centerText();
             canvas.drawText(getResources().getString(R.string.you_win), middleX, textBottom, paint);
             paint.setTextSize(bodyTextSize);
-            String text = showButton ? getResources().getString(R.string.go_on) :
-                    getResources().getString(R.string.for_now);
+            String text = showButton
+                    ? getResources().getString(R.string.go_on)
+                    : getResources().getString(R.string.for_now);
             canvas.drawText(text, middleX, textBottom + textPaddingSize * 2 - centerText() * 2, paint);
         } else {
             fadeRectangle.setAlpha(127);
@@ -516,7 +528,6 @@ public class MainView extends View {
         drawBackground(canvas);
         drawBackgroundGrid(canvas);
         drawInstructions(canvas);
-
     }
 
     private void createBitmapCells() {
@@ -531,6 +542,7 @@ public class MainView extends View {
             Bitmap bitmap = Bitmap.createBitmap(cellSize, cellSize, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             drawDrawable(canvas, resources.getDrawable(cellRectangleIds[xx]), 0, 0, cellSize, cellSize);
+
             drawCellText(canvas, value);
             bitmapCell[xx] = new BitmapDrawable(resources, bitmap);
         }
@@ -608,15 +620,15 @@ public class MainView extends View {
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(1000);
         instructionsTextSize = Math.min(
-            1000f * (widthWithPadding / (paint.measureText(getResources().getString(R.string.instructions)))),
-            textSize / 1.5f
+                1000f * (widthWithPadding / (paint.measureText(getResources().getString(R.string.instructions)))),
+                textSize / 1.5f
         );
         gameOverTextSize = Math.min(
-            Math.min(
-                1000f * ((widthWithPadding - gridWidth * 2) / (paint.measureText(getResources().getString(R.string.game_over)))),
-                textSize * 2
-            ),
-            1000f * ((widthWithPadding - gridWidth * 2) / (paint.measureText(getResources().getString(R.string.you_win))))
+                Math.min(
+                        1000f * ((widthWithPadding - gridWidth * 2) / (paint.measureText(getResources().getString(R.string.game_over)))),
+                        textSize * 2
+                ),
+                1000f * ((widthWithPadding - gridWidth * 2) / (paint.measureText(getResources().getString(R.string.you_win))))
         );
 
         paint.setTextSize(cellSize);

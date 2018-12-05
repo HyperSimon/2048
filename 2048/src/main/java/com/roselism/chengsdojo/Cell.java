@@ -1,4 +1,4 @@
-package com.tpcstld.twozerogame;
+package com.roselism.chengsdojo;
 
 public class Cell {
     private int x;

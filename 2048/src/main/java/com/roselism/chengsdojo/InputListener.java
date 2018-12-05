@@ -1,4 +1,4 @@
-package com.tpcstld.twozerogame;
+package com.roselism.chengsdojo;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
