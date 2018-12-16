@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 28
-        versionName "1.1.13"
+        versionCode 30
+        versionName "1.1.15"
     }
 
     buildTypes {
@@ -17,10 +17,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                //这里修改apk文件名
+                outputFileName = "${variant.name}-v${variant.versionName}.apk"
+            }
+    }
 }
 
 dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
 }
-
-
